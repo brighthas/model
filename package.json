@@ -1,0 +1,33 @@
+{
+  "name": "brighthas-model",
+  "version": "0.0.0",
+  "description": "model for javascript",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "emitter-component": "~1.1.1",
+    "istype": "~0.0.2",
+    "clone": "~0.1.11"
+  },
+  "devDependencies": {
+    "should": "~3.0.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brighthas/model"
+  },
+  "keywords": [
+    "model"
+  ],
+  "author": "brighthas@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brighthas/model/issues"
+  },
+  "homepage": "https://github.com/brighthas/model"
+}
