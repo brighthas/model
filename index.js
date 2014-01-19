@@ -65,7 +65,7 @@ function createModel(name){
 				throw new Error("error type.")
 			}
 		}else{
-			option.type = "json";
+			option.type = "string";
 		}
 		
 		this.attrs[name] = option;
