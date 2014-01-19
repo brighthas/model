@@ -240,7 +240,11 @@ function createModel(name){
 	Model.prototype.isValid = function(attr_name){
 	  this.validate(attr_name);
 	  return 0 == this.errors.length;
-	};
+	}
+	
+	Model.prototype.hasError = function(){
+  	  return 0 < this.errors.length;
+	}
 	
 	Model._name = name;
 	
