@@ -8,7 +8,7 @@ Create Model
 
 ```js
 var createModel = require("brighthas-model");
-var User = Model("User",
+var User = createModel("User",
 	"name",
 	"age",
 	history,{type:"array"});
@@ -140,7 +140,7 @@ when get value , the value is original value.
 
 ```js
 
-var User = Model("User",
+var User = createModel("User",
 	"name",
 	"age",
 	history,{type:"array"});

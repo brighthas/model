@@ -1,0 +1,1 @@
+module.exports = ["string", "array", "number", "regexp", "data", "json"];

@@ -17,9 +17,9 @@ describe("model",function(){
 	var Test;
 	
 	it("#create",function(){
-		Test = createModel("Test","ct",{type:CType});
+		Test = createModel("Test","ct",{type:CType},"nick");
 		Test.use(function(Model){
-			Model.validat(function type(obj,names){
+			Model.validate(function type(obj,names){
 				names.forEach(function(name){
 					var option = Model.attrs[name] || {};
 					var type = option.type;
@@ -45,9 +45,15 @@ describe("model",function(){
 		var jsonObj = o.toJSON();
 		
 		var newo = Test.reborn(jsonObj);
-		
 		newo.ct.add(new CType("new name",12));
-		
+		newo.nick = "fdsfsd";
+		newo.name = "dddd"
+		console.log(newo.toJSON())
+	})
+	
+	it("#change",function(){
+		var o  = new Test();
+		o.
 	})
 	
 })
