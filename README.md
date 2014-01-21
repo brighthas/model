@@ -1,5 +1,7 @@
-model
-=====
+Install
+=======
+
+npm i brighthas/model
 
 model
 
@@ -7,7 +9,7 @@ Create Model
 ============
 
 ```js
-var createModel = require("brighthas-model");
+var createModel = require("model");
 var User = createModel("User",
 	"name",
 	"age",
@@ -134,7 +136,7 @@ console.log(u1 === u2); // false
 
 #### Complex type
 
-complex type can be `Model` or object including Type.prototype.toJSON & Type.reborn function.
+complex type can be `Model` or object including Type.prototype.toJSON & Type.reborn function & emit `changed` event.
 
 when get value , the value is original value.
 

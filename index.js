@@ -1,21 +1,11 @@
 var Emitter = require("emitter-component"),
 	is = require("istype"),
 	statics = require("./static"),
+	defaultValue = require("./default"),
+	validator = require("./validator"),
 	bindSubEvent = require("./bindSubEvent"),
 	proto = require("./proto"),
 	ModelClasses = {}, types = require("./types");
-
-function isBaseType(v) {
-	if (v) {
-		var t = is.type(v);
-		if (types.indexOf(t) !== -1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	return true;
-}
 
 
 function createModel(name) {
@@ -50,11 +40,13 @@ function createModel(name) {
 			this.oattrs = {};
 			this.errors = [];
 			var keys = Object.keys(this.model.attrs);
+			this.model.emit("creating",this);
 			this.validate();
-			if (!this.hasError()) {				
+			if (!this.hasError()) {
+				this.oattrs = attrs || {};
 				var names = this.model.getComplexAttrNames();
-				bindSubEvent(self,names);
-				this.model.emit("create", this);
+				bindSubEvent(this,names);
+				this.model.emit("created", this);
 			}
 		}
 	}
@@ -72,6 +64,10 @@ function createModel(name) {
     for (var key in proto) { Model.prototype[key] = proto[key]; }
 	
 	generateAttr([].slice.call(arguments, 1));
+	
+	Model.use(defaultValue);
+	Model.use(validator);
+	
 	return Model;
 
 }
@@ -79,5 +75,6 @@ function createModel(name) {
 createModel.get = function(name) {
 	return ModelClasses[name]
 }
+
 
 module.exports = createModel;

@@ -4,56 +4,86 @@ var should = require("should");
 var is = require("istype");
 
 
-function isBaseType(t){
-	if(t==="array" || t==="number" || t === "boolean" ||  t==="string" ||  t==="regexp"){
-		return true;
-	}else{
-		return false;
-	}
-}
+describe("model", function() {
 
+	var Book;
 
-describe("model",function(){
-	var Test;
-	
-	it("#create",function(){
-		Test = createModel("Test","ct",{type:CType},"nick");
-		Test.use(function(Model){
-			Model.validate(function type(obj,names){
-				names.forEach(function(name){
-					var option = Model.attrs[name] || {};
-					var type = option.type;
-					var v = obj.attrs[name];
-					if(type){
-						if(isBaseType(type)){
-							
-						}else{
-							
-						}
-					}
-				});
-			});
+	it("#createModel", function() {
+		Book = createModel("Book", "name", {
+			required: true
+		}, "age", {
+			type: "number",
+			default: 30
+		}, "price", {
+			type: "number",
+			default: 115.00
+		});
+	});
+
+	it("#new", function() {
+		var book = new Book();
+		book.hasError().should.be.true;
+		book = new Book({
+			name: "hello js"
 		})
+		book.hasError().should.be.false;
+	})
+
+	it("# creating & created event", function() {
+
+		var book, book2, book3;
+
+		Book.on("creating", function(o) {
+			book2 = o;
+		})
+
+		Book.on("created", function(o) {
+			book3 = o;
+			var bool = book2 === book3;
+			bool.should.be.true;
+		})
+
+		book = new Book({
+			name: "node.js whit express"
+		});
+
+		var bool = book === book2 && book2 === book3;
+		bool.should.be.true;
+	})
+
+	it("# changing & chaged event", function() {
+
+		var book = new Book({
+			name: "node.js whit express"
+		});
+		book.on('changing', function(attrs) {
+			attrs.should.eql({
+				name: "first book"
+			});
+			book.name.should.eql("node.js whit express");
+		});
+		book.on("changed", function() {
+			book.name.should.eql("first book");
+		});
+
+		book.name = "first book";
+
+	})
+
+	it("# Model.attr()",function(){
+		var User = createModel("User");
+		User.attr("name");
+		User.attr("age",{type:"number"});
+		User.attrs.name.type.should.eql("string");
+		User.attrs.age.type.should.eql("number");
 	})
 	
-	it("#new",function(){
+	it("# Model.method()",function(){
+		var User = createModel("User");
+		function toJSON(){}
+		User.method("toJSON",toJSON);
 		
-		var o  = new Test();
-		o.ct = new CType("leo",32);
-		o.ct.add(new CType("brighthas",20))
-		
-		var jsonObj = o.toJSON();
-		
-		var newo = Test.reborn(jsonObj);
-		newo.ct.add(new CType("new name",12));
-		newo.nick = "fdsfsd";
-		newo.name = "dddd"
-		console.log(newo.toJSON())
+		(User.prototype.toJSON !== toJSON).should.be.true;
 	})
-	
-	it("#change",function(){
-		var o  = new Test();
-		o.
-	})
-	
+
 })

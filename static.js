@@ -10,13 +10,13 @@ exports.attr = function(name,option){
 		if(!(type.prototype.toJSON && type.reborn)){		
 			throw new Error("custom type must implement toJSON & reborn");
 		}
-	}else{
+	}else if(!type){
 		option.type = "string";
 	}
 	
 	this.attrs[name] = option;
 	
-	createAttr(k);
+	this.createAttr(name);
 	
 	return this;
 	
@@ -25,11 +25,12 @@ exports.attr = function(name,option){
 exports.getComplexAttrNames = function(){
 	var attrNames = [];
 	for(var k in this.attrs){
-		type = this.attrs[k];
+		type = this.attrs[k].type;
 		if(is.type(type) === "function"){
 			attrNames.push(k);
 		}
 	}
+	return attrNames;
 }
 
 exports.isComplexType = function(attrName){
@@ -40,6 +41,7 @@ exports.isComplexType = function(attrName){
 exports.createAttr = function(k){
 	Object.defineProperty(this.prototype,k,{
 		get:function(){
+
 			var v = this.oattrs[k];
 			
 			if(v){
@@ -78,7 +80,10 @@ exports.createAttr = function(k){
 
 
 exports.method = function(name,fn){
-	Model.prototype[name] = fn;
+	if(!this.prototype[name]){
+		this.prototype[name] = fn;
+	}
+	return this;
 }
 
 exports.use = function(plugin){
@@ -94,7 +99,7 @@ exports.reborn = function(jsonObj){
 	
 	var attrs = this.attrs;
 	
-	var obj = new Model();
+	var obj = new this();
 	for(var k in jsonObj){
 		
 		var v = jsonObj[k];

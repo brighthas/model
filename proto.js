@@ -1,5 +1,14 @@
 var types = require("./types"),
-bindSubEvent = require("./bindSubEvent");
+	is = require("istype"),
+	bindSubEvent = require("./bindSubEvent");
+
+exports.error = function(attr, msg) {
+	this.errors.push({
+		attr: attr,
+		message: msg
+	});
+	return this;
+};
 
 exports.set = function(attrs) {
 
@@ -14,24 +23,23 @@ exports.set = function(attrs) {
 	}
 
 	return this;
-}
+};
 
 exports.toJSON = function() {
 
 	var jsonObj = {};
 	var attrs = this.oattrs;
-	var option = Model.attrs[k];
+	var option = this.model.attrs[k];
 
 	for (var k in attrs) {
-		var v = attrs[k];
-
-		if (isBaseType(v)) {
-			jsonObj[k] = v;
-		} else if (is.type(v) === "date") {
-			jsonObj[k] = v.getTime();
-		} else if (v.toJSON) {
-			jsonObj[k] = v.toJSON();
-		} else {
+		var v = this[k];
+		if (v) {
+			if (this.model.isComplexType(k)) {
+				jsonObj[k] = v.toJSON()
+			}else{
+				jsonObj[k] = v;
+			}
+		}else{
 			jsonObj[k] = v;
 		}
 	}
@@ -48,11 +56,11 @@ exports.validate = function(attr_name) {
 	} else if (is.type(attr_name) === "string") {
 		keys.push(attr_name);
 	} else {
-		keys = Object.keys(this.attrs);
+		keys = Object.keys(this.model.attrs);
 	}
 
 	var self = this;
-	var fns = Model.validators;
+	var fns = this.model.validators;
 	this.errors = [];
 	fns.forEach(function(fn) {
 		fn(self, keys);
@@ -65,9 +73,9 @@ exports.begin = function() {
 }
 
 exports.end = function() {
-		
-	this.model.emit("change", this, this.attrs);
-	this.emit("change", this.attrs);
+
+	this.model.emit("changing", this, this.attrs);
+	this.emit("changing", this.attrs);
 	this.validate();
 	if (!this.hasError()) {
 		this._instant = true;
@@ -75,13 +83,13 @@ exports.end = function() {
 		var names = [];
 		for (var k in data) {
 			var v = this.oattrs[k] = data[k];
-			if(this.model.isComplexType(k)){
+			if (this.model.isComplexType(k)) {
 				names.push(k);
 			}
 		}
-		
-		bindSubEvent(self,names);
-		
+
+		bindSubEvent(this, names);
+
 		this.attrs = {};
 		this.model.emit("changed", this, this.attrs);
 		this.emit("changed", this.attrs);

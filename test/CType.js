@@ -1,9 +1,12 @@
+var Emitter = require("emitter-component")
+
 function CType(name,age){
 	this.name = name;
 	this.age = age;
 	this.subs = [];
 }
 
+Emitter(CType.prototype);
 
 
 CType.prototype.toJSON = function(){
