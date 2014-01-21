@@ -1,9 +1,7 @@
 Install
 =======
 
-npm i brighthas/model
-
-model
+	npm i brighthas/model
 
 Create Model
 ============
