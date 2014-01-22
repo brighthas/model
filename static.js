@@ -51,7 +51,9 @@ exports.createAttr = function(k){
 						return new RegExp(v.toString());
 						break;
 					case "date":
-						return new Date().setTime(v.getTime());
+						var time = new Date();
+						time.setTime(v.getTime());
+						return time;
 						break;
 					case "array":
 					case "json":
@@ -79,6 +81,7 @@ exports.createAttr = function(k){
 }
 
 
+
 exports.method = function(name,fn){
 	if(!this.prototype[name]){
 		this.prototype[name] = fn;
@@ -103,14 +106,24 @@ exports.reborn = function(jsonObj){
 	for(var k in jsonObj){
 		
 		var v = jsonObj[k];
-		
-		if(types.indexOf(attrs[k].type) !== -1){
-			obj.oattrs[k] = v;
+		if(types.indexOf(this.attrs[k].type) !== -1){
+			var t = attrs[k].type;
+			if(t === "date"){
+				var time = new Date();
+				time.setTime(v);
+				obj.oattrs[k] = time;
+				
+			}else if(t === "regexp"){
+				obj.oattrs[k] = new RegExp(v);
+				
+			}else{
+				obj.oattrs[k] = v;
+			}
 		}else{
 			
 			var type = attrs[k] ? attrs[k].type : null;
-			
 			if(type){
+				
 				obj.oattrs[k] = type.reborn(v);
 			}else{
 				obj.oattrs[k] = v;
