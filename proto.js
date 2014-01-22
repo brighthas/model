@@ -77,6 +77,7 @@ exports.end = function() {
 	this.model.emit("changing", this, this.attrs);
 	this.emit("changing", this.attrs);
 	this.validate(Object.keys(this.attrs));
+	
 	if (!this.hasError()) {
 		this._instant = true;
 		var data = this.attrs;
@@ -89,11 +90,14 @@ exports.end = function() {
 		}
 
 		bindSubEvent(this, names);
-
-		this.attrs = {};
 		this.model.emit("changed", this, this.attrs);
 		this.emit("changed", this.attrs);
 	}
+	
+	this.attrs = {};
+	this._instant = true;
+	
+	
 }
 
 exports.hasError = function() {

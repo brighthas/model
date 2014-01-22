@@ -1,6 +1,6 @@
 {
-  "name": "brighthas-model",
-  "version": "0.0.0",
+  "name": "model-brighthas",
+  "version": "0.0.1",
   "description": "model for javascript",
   "main": "index.js",
   "directories": {
