@@ -22,6 +22,26 @@ exports.attr = function(name,option){
 	
 }
 
+exports.toJSON = function(model,keys) {
+
+	var jsonObj = {};
+	 keys.forEach(function(k){
+		var v = model[k];
+		if (v) {
+			if (model.model.isComplexType(k)) {
+				jsonObj[k] = v.toJSON()
+			}else{
+				jsonObj[k] = v;
+			}
+		}else{
+			jsonObj[k] = v;
+		}
+	});
+
+	return jsonObj;
+
+}
+
 exports.getComplexAttrNames = function(){
 	var attrNames = [];
 	for(var k in this.attrs){

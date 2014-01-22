@@ -29,7 +29,6 @@ exports.toJSON = function() {
 
 	var jsonObj = {};
 	var attrs = this.oattrs;
-	var option = this.model.attrs[k];
 
 	for (var k in attrs) {
 		var v = this[k];
