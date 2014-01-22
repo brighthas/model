@@ -76,7 +76,7 @@ exports.end = function() {
 
 	this.model.emit("changing", this, this.attrs);
 	this.emit("changing", this.attrs);
-	this.validate();
+	this.validate(Object.keys(this.attrs));
 	if (!this.hasError()) {
 		this._instant = true;
 		var data = this.attrs;

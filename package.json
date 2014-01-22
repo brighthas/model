@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "emitter-component": "~1.1.1",
-    "istype": "~0.0.2",
-    "clone": "~0.1.11"
+    "istype": "~0.0.2"
   },
   "devDependencies": {
     "should": "~3.0.1"

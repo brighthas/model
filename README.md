@@ -1,7 +1,7 @@
 Install
 =======
 
-	npm i brighthas/model
+	npm i brighthas/model --save
 
 Create Model
 ============
