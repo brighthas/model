@@ -60,7 +60,6 @@ exports.validate = function(attr_name) {
 
 	var self = this;
 	var fns = this.model.validators;
-	this.errors = [];
 	fns.forEach(function(fn) {
 		fn(self, keys);
 	});
