@@ -85,5 +85,17 @@ describe("model", function() {
 		
 		(User.prototype.toJSON !== toJSON).should.be.true;
 	})
+	
+	it("# readonly",function(){
+		var User = createModel("User");
+		User.attr("name",{readonly:true});
+		
+		var user = new User();
+		user.name = "leo";
+		user.name.should.eql("leo")
+		user.name = "brighthas";
+		user.name.should.eql("leo")
+		user.hasError().should.be.true;
+	})
 
 })

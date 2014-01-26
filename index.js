@@ -2,6 +2,7 @@ var Emitter = require("emitter-component"),
 	is = require("istype"),
 	statics = require("./static"),
 	defaultValue = require("./default"),
+	readonly = require("./readonly"),
 	validator = require("./validator"),
 	bindSubEvent = require("./bindSubEvent"),
 	proto = require("./proto"),
@@ -65,6 +66,7 @@ function createModel(name) {
 	
 	generateAttr([].slice.call(arguments, 1));
 	
+	Model.use(readonly);
 	Model.use(defaultValue);
 	Model.use(validator);
 	
