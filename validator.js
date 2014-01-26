@@ -32,7 +32,7 @@ module.exports = function(Model){
 						if(!is.array(value)){
 							hasError = true;
 						}else{
-							obj.attrs[key] == JSON.parse(JSON.stringif(value));
+							obj.attrs[key] == JSON.parse(JSON.stringify(value));
 						}
 						break;
 					case "number":
@@ -54,7 +54,7 @@ module.exports = function(Model){
 					case "json":
 						
 						try{
-							obj.attrs[key] == JSON.parse(JSON.stringif(value));
+							obj.attrs[key] == JSON.parse(JSON.stringify(value));
 						}catch(e){
 							hasError = true;
 						}
