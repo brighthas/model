@@ -97,5 +97,88 @@ describe("model", function() {
 		user.name.should.eql("leo")
 		user.hasError().should.be.true;
 	})
+	
+	it("#string length validator",function(){
+		var User = createModel("User");
+		User.attr("name",{len:6});
+		var user = new User;
+		user.name = "bright";
+
+		user.name.should.eql("bright");
+		user.name = "brighthas";
+		user.name.should.eql("bright");
+		
+		
+	})
+	
+	it("# string min and max",function(){
+		
+		var User = createModel("User");
+		User.attr("name",{min:3,max:6});
+		var user = new User;
+		user.name = "bright";
+		user.name.should.eql("bright");
+		user.name = "bb";
+		user.name.should.eql("bright");
+		
+	})
+	
+	it("#number size validator",function(){
+		
+		var User = createModel("User");
+		User.attr("age",{size:6,type:"number"});
+		
+		var user = new User;
+		user.age = 6;
+
+		user.age.should.eql(6);
+		user.age =12;
+		user.age.should.eql(6);
+		
+		
+	})
+	
+	it("#number min / max validator",function(){
+		
+		var User = createModel("User");
+		User.attr("age",{min:3,max:6,type:"number"});
+		
+		var user = new User;
+		user.age = 6;
+
+		user.age.should.eql(6);
+		user.age =7;
+		user.age.should.eql(6);
+		
+	})
+	
+	it("array length validator",function(){
+		
+		var User = createModel("User");
+		User.attr("arr",{len:6,type:"array"});
+		
+		var user = new User;
+		user.arr = Array(6);
+
+		user.arr.length.should.eql(6);
+		user.arr =[12];
+		
+		user.arr.length.should.eql(6);
+	})
+	
+	it("array length min / max validator",function(){
+		
+		var User = createModel("User");
+		User.attr("arr",{min:2,max:6,type:"array"});
+		
+		var user = new User;
+		user.arr = Array(6);
+
+		user.arr.length.should.eql(6);
+		user.arr = Array(7);
+		
+		user.arr.length.should.eql(6);
+	})
+	
 
 })
