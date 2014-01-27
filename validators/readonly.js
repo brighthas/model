@@ -1,4 +1,4 @@
-var is = require("istype"),types = require("./types");
+var is = require("istype"),types = require("../types");
 
 module.exports = function(Model){
 	Model.validators.push(function readonly(obj,keys){

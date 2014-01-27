@@ -1,9 +1,12 @@
 var Emitter = require("emitter-component"),
 	is = require("istype"),
 	statics = require("./static"),
-	defaultValue = require("./default"),
-	readonly = require("./readonly"),
-	validator = require("./validator"),
+	
+	default_validator = require("./validators/default"),
+	readonly_validator = require("./validators/readonly"),
+	type_validator = require("./validators/type"),
+	required_validator = require("./validators/required"),
+	
 	bindSubEvent = require("./bindSubEvent"),
 	proto = require("./proto"),
 	ModelClasses = {}, types = require("./types");
@@ -66,9 +69,10 @@ function createModel(name) {
 	
 	generateAttr([].slice.call(arguments, 1));
 	
-	Model.use(readonly);
-	Model.use(defaultValue);
-	Model.use(validator);
+	Model.use(type_validator);
+	Model.use(readonly_validator);
+	Model.use(default_validator);
+	Model.use(required_validator);
 	
 	return Model;
 
