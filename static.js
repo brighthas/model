@@ -124,6 +124,9 @@ exports.reborn = function(jsonObj){
 	var attrs = this.attrs;
 	
 	var obj = new this();
+	
+	obj.errors = [];
+	
 	for(var k in jsonObj){
 		
 		var v = jsonObj[k];
