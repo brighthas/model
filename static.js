@@ -116,6 +116,7 @@ exports.use = function(plugin){
 
 exports.validate = function(validator){
 	this.validators.push(validator);
+	return this;
 }
 
 exports.reborn = function(jsonObj){
