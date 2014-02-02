@@ -28,15 +28,23 @@ exports.set = function(attrs) {
 exports.toJSON = function() {
 
 	var jsonObj = {};
-	var attrs = this.oattrs;
+	var attrs = this.model.attrs;
 
 	for (var k in attrs) {
+		var type = attrs[k].type;
 		var v = this[k];
 		if (v) {
 			if (this.model.isComplexType(k)) {
 				jsonObj[k] = v.toJSON()
 			}else{
-				jsonObj[k] = v;
+				// DOTo
+				if(type === "date"){
+					jsonObj[k] = v.getTime();
+				}else if(type === "regexp"){
+					jsonObj[k] = v.toString();
+				}else{
+					jsonObj[k] = v;
+				}
 			}
 		}else{
 			jsonObj[k] = v;
