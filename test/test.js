@@ -126,15 +126,15 @@ describe("model", function() {
 	it("#number size validator",function(){
 		
 		var User = createModel("User");
-		User.attr("age",{size:6,type:"number"});
+		User.attr("age",{size:6,message:"hahah",type:"number"});
 		
 		var user = new User;
 		user.age = 6;
 
 		user.age.should.eql(6);
-		user.age =12;
+		user.age = 222;
+//		console.log(user.errors)
 		user.age.should.eql(6);
-		
 		
 	})
 	
@@ -178,7 +178,7 @@ describe("model", function() {
 		user.arr = Array(7);
 		
 		user.arr.length.should.eql(6);
+		
 	})
-	
 
 })
