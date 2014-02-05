@@ -120,17 +120,19 @@ exports.validate = function(validator){
 }
 
 exports.reborn = function(jsonObj){
-	
+
 	var attrs = this.attrs;
 	
 	var obj = new this();
-	
+	var self = this;
 	obj.errors = [];
+	var keys = Object.keys(this.attrs);
 	
-	for(var k in jsonObj){
+	keys.forEach(function(k){
 		
 		var v = jsonObj[k];
-		if(types.indexOf(this.attrs[k].type) !== -1){
+		
+		if(types.indexOf(self.attrs[k].type) !== -1){
 			var t = attrs[k].type;
 			if(t === "date"){
 				var time = new Date();
@@ -153,9 +155,10 @@ exports.reborn = function(jsonObj){
 				obj.oattrs[k] = v;
 			}
 		}		
-	}		
+	});	
 	
 	bindSubEvent(obj,this.getComplexAttrNames());
 
-	return obj;
+	return obj;	
+
 }
