@@ -20,7 +20,10 @@ exports.error = function(attr, message) {
 			this.errors[attr].push(message);
 		}
 	}else{
-		this.errors[attr] = message;
+		if(!this.errors[attr]){
+			this.errors[attr] = []
+		}
+		this.errors[attr].push(message);
 	}
 	return this;
 };
