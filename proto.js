@@ -4,24 +4,24 @@ var types = require("./types"),
 
 exports.error = function(attr, message) {
 	
-	var msg = this.model.attrs[attr].message;
+	var option = this.model.attrs[attr];
 	
-	if(msg){
+	if(option){
+		var msg = option.message;
+		if(msg){
+			if(!this.errors[attr]){
+				this.errors[attr] = [msg];
+			}
+		}else{
 		
-		if(!this.errors[attr]){
-			this.errors[attr] = [msg];
+			if(!this.errors[attr]){
+				this.errors[attr] = []
+			}
+			this.errors[attr].push(message);
 		}
-		
 	}else{
-		
-		if(!this.errors[attr]){
-			this.errors[attr] = []
-		}
-		
-		this.errors[attr].push(message);
-		
+		this.errors[attr] = message;
 	}
-	
 	return this;
 };
 
