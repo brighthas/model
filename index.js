@@ -44,7 +44,7 @@ function createModel(name) {
             this._instant = true;
             this.attrs = attrs || {};
             this.oattrs = {};
-            this.errors = [];
+            this.errors = {};
             var keys = Object.keys(this.model.attrs);
             this.model.emit("creating", this);
             this.validate();
