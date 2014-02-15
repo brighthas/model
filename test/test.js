@@ -209,7 +209,8 @@ describe("model", function() {
     it("email type", function() {
         var User = createModel("User");
         User.attr("email", {
-            type: "email"
+            type: "email",
+			message:"have error !!!"
         });
 
         var user = new User;
@@ -219,12 +220,45 @@ describe("model", function() {
         user.email = "aaaa";
 
         user.hasError().should.eql(true);
+		user.errors["email"][0].should.eql("have error !!!");
 
         user.email = "abcd@kk.com";
 
         user.hasError().should.eql(false);
 
-
     })
+	
+	it("validator option",function(){
+        var User = createModel("User");
+        User
+		.attr("name", {
+			validator:/abc/
+        })
+		.attr("age",{
+			validator:function(v){
+				return v < 12;
+			}
+		})
+		
+		console.log(User.attrs)
+
+        var user = new User;
+        user.hasError().should.eql(false);
+		
+		user.name = "hahaha";
+        user.hasError().should.eql(true);
+		
+		user.name = "aaabcddd";
+        user.hasError().should.eql(false);
+		
+		user.age = 12;
+        user.hasError().should.eql(true);
+			// 	
+		// user.age = 11;
+		//         user.hasError().should.eql(false);
+		// 
+		
+		
+	})
 
 })
