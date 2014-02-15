@@ -14,14 +14,13 @@ module.exports = function(Model) {
             var type = option.type;
             var validator = option.validator;
             var value = obj.attrs[key];
-			console.log(key,value);
             if (validator && value) {
                 if (is.regexp(validator)) {
                     if (!validator.test(value)) {
                         obj.error(key, "error");
                     }
                 } else {
-                    if (!validator(obj)) {
+                    if (!validator(value)) {
                         obj.error(key, "error");
                     }
                 }

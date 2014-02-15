@@ -7,7 +7,7 @@ var Emitter = require("emitter-component"),
     type_validator = require("./validators/type"),
     required_validator = require("./validators/required"),
     length_validator = require("./validators/length"),
-	validator_validator = require("./validators/validator"),
+    validator_validator = require("./validators/validator"),
 
     bindSubEvent = require("./bindSubEvent"),
     proto = require("./proto"),
@@ -80,7 +80,7 @@ function createModel(name) {
     Model.use(default_validator);
     Model.use(required_validator);
     Model.use(length_validator);
-	Model.use(validator_validator);
+    Model.use(validator_validator);
 
     return Model;
 
