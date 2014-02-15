@@ -1,1 +1,1 @@
-module.exports = ["string", "array", "number", "regexp", "date", "json","boolean"];
+module.exports = ["string", "array", "number", "regexp", "date", "json","boolean","email"];

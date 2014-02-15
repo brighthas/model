@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "emitter-component": "~1.1.1",
-    "istype": "~0.0.2"
+    "istype": "~0.0.2",
+    "validator": "~3.2.1"
   },
   "devDependencies": {
     "should": "~3.0.1"
