@@ -1,7 +1,7 @@
 var Emitter = require("emitter-component"),
     is = require("istype"),
     statics = require("./static"),
-
+	Result = require("result-brighthas"),
     default_validator = require("./validators/default"),
     readonly_validator = require("./validators/readonly"),
     type_validator = require("./validators/type"),
@@ -44,7 +44,7 @@ function createModel(name) {
             this._instant = true;
             this.attrs = attrs || {};
             this.oattrs = {};
-            this.errors = {};
+            this.errors = new Result();
             var keys = Object.keys(this.model.attrs);
             this.model.emit("creating", this);
             this.validate();

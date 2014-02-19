@@ -147,7 +147,6 @@ describe("model", function() {
 
         user.age.should.eql(6);
         user.age = 222;
-        //		console.log(user.errors)
         user.age.should.eql(6);
 
     })
@@ -220,7 +219,9 @@ describe("model", function() {
         user.email = "aaaa";
 
         user.hasError().should.eql(true);
-        user.errors["email"][0].should.eql("have error !!!");
+		
+		
+        user.errors.error("email")[0].should.eql("have error !!!");
 
         user.email = "abcd@kk.com";
 

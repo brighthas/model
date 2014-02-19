@@ -2,34 +2,21 @@ var types = require("./types"),
     is = require("istype"),
     bindSubEvent = require("./bindSubEvent");
 
-exports.error = function(attr, message) {
-
+exports.error = function(attr, message) {	
     var option = this.model.attrs[attr];
-
-    if (option) {
-        var msg = option.message;
-        if (msg) {
-            if (!this.errors[attr]) {
-                this.errors[attr] = [msg];
-            }
-        } else {
-
-            if (!this.errors[attr]) {
-                this.errors[attr] = []
-            }
-            this.errors[attr].push(message);
+    var msg = option.message;
+	var err = this.errors.error(attr);
+    if (msg) {
+        if (!err || err.length === 0) {
+            this.errors.error(attr,msg);
         }
     } else {
-        if (!this.errors[attr]) {
-            this.errors[attr] = []
-        }
-        this.errors[attr].push(message);
+        this.errors.error(attr,message);
     }
     return this;
 };
 
 exports.set = function(attrs) {
-
     if (this._instant) {
         this.begin();
         this.attrs = attrs;
@@ -39,7 +26,6 @@ exports.set = function(attrs) {
             this.attrs[k] = attrs[k];
         }
     }
-
     return this;
 };
 
@@ -94,7 +80,7 @@ exports.validate = function(attr_name) {
 
 exports.begin = function() {
     this._instant = false;
-    this.errors = {};
+    this.errors.clearError();
 }
 
 exports.end = function() {
@@ -127,6 +113,5 @@ exports.end = function() {
 }
 
 exports.hasError = function() {
-    var keys = Object.keys(this.errors);
-    return 0 < keys.length;
+    return this.errors.hasError();
 }

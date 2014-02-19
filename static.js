@@ -15,9 +15,7 @@ exports.attr = function(name, option) {
     }
 
     this.attrs[name] = option;
-
     this.createAttr(name);
-
     return this;
 
 }
@@ -125,7 +123,7 @@ exports.reborn = function(jsonObj) {
 
     var obj = new this();
     var self = this;
-    obj.errors = {};
+    obj.errors.clearError();
     var keys = Object.keys(this.attrs);
 
     keys.forEach(function(k) {
