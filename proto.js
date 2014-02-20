@@ -2,15 +2,15 @@ var types = require("./types"),
     is = require("istype"),
     bindSubEvent = require("./bindSubEvent");
 
-exports.error = function(attr, message) {	
+exports.error = function(attr, message) {
     var option = this.model.attrs[attr];
-	var err = this.errors.error(attr);
+    var err = this._errors.error(attr);
     if (option && option.message) {
         if (!err || err.length === 0) {
-            this.errors.error(attr,option.message);
+            this._errors.error(attr, option.message);
         }
     } else {
-        this.errors.error(attr,message);
+        this._errors.error(attr, message);
     }
     return this;
 };
@@ -79,7 +79,7 @@ exports.validate = function(attr_name) {
 
 exports.begin = function() {
     this._instant = false;
-    this.errors.clearError();
+    this._errors.clearError();
 }
 
 exports.end = function() {
@@ -112,5 +112,5 @@ exports.end = function() {
 }
 
 exports.hasError = function() {
-    return this.errors.hasError();
+    return this._errors.hasError();
 }

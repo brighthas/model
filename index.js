@@ -44,7 +44,9 @@ function createModel(name) {
             this._instant = true;
             this.attrs = attrs || {};
             this.oattrs = {};
-            this.errors = new Result();
+            this._errors = new Result();
+
+
             var keys = Object.keys(this.model.attrs);
             this.model.emit("creating", this);
             this.validate();
@@ -72,6 +74,15 @@ function createModel(name) {
     for (var key in proto) {
         Model.prototype[key] = proto[key];
     }
+	
+	Object.defineProperty(Model.prototype, "errors", {
+	    get: function() {
+	        return this._errors._error;
+	    },
+	    enumerable: true,
+	    configurable: true
+	})
+	
 
     generateAttr([].slice.call(arguments, 1));
 

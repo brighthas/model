@@ -221,7 +221,7 @@ describe("model", function() {
         user.hasError().should.eql(true);
 		
 		
-        user.errors.error("email")[0].should.eql("have error !!!");
+        user.errors.email[0].should.eql("have error !!!");
 
         user.email = "abcd@kk.com";
 
