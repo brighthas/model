@@ -4,11 +4,10 @@ var types = require("./types"),
 
 exports.error = function(attr, message) {	
     var option = this.model.attrs[attr];
-    var msg = option.message;
 	var err = this.errors.error(attr);
-    if (msg) {
+    if (option && option.message) {
         if (!err || err.length === 0) {
-            this.errors.error(attr,msg);
+            this.errors.error(attr,option.message);
         }
     } else {
         this.errors.error(attr,message);
