@@ -77,7 +77,10 @@ function createModel(name) {
 	
 	Object.defineProperty(Model.prototype, "errors", {
 	    get: function() {
+			if(this.hasError())
 	        return this._errors._error;
+			else
+			return null;
 	    },
 	    enumerable: true,
 	    configurable: true
