@@ -41,12 +41,31 @@ function createModel(name) {
             return new Model(attrs);
         } else {
             Emitter(this);
+			var self = this;
             this._instant = true;
             this.attrs = attrs || {};
             this.oattrs = {};
-            this._errors = new Result();
+            this.result = new Result();
 
+			var errorFun = this.result.error.bind(this.result);
+			
+			this.result.error = function(attr, message) {
+				if(arguments.length === 1){
+					return errorFun(attr);
 
+				}else{
+				    var option = self.model.attrs[attr];
+				    var err = errorFun(attr);
+				    if (option && option.message) {
+				        if (!err || err.length === 0) {
+				            errorFun(attr, option.message);
+				        }
+				    } else {
+					        errorFun(attr, message);
+				    }
+				}
+			};
+			
             var keys = Object.keys(this.model.attrs);
             this.model.emit("creating", this);
             this.validate();
@@ -74,17 +93,6 @@ function createModel(name) {
     for (var key in proto) {
         Model.prototype[key] = proto[key];
     }
-	
-	Object.defineProperty(Model.prototype, "errors", {
-	    get: function() {
-			if(this.hasError())
-	        return this._errors._error;
-			else
-			return null;
-	    },
-	    enumerable: true,
-	    configurable: true
-	})
 	
 
     generateAttr([].slice.call(arguments, 1));

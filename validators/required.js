@@ -12,7 +12,7 @@ module.exports = function(Model){
 				var value = obj.attrs[key];
 				var type = is.type(value);
 				if(type === "null" || type === "undefined"){
-					obj.error(key,key + " 's value is unrequired.");
+					obj.result.error(key,key + " 's value is unrequired.");
 				}
 			}
 		})

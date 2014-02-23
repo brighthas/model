@@ -2,19 +2,6 @@ var types = require("./types"),
     is = require("istype"),
     bindSubEvent = require("./bindSubEvent");
 
-exports.error = function(attr, message) {
-    var option = this.model.attrs[attr];
-    var err = this._errors.error(attr);
-    if (option && option.message) {
-        if (!err || err.length === 0) {
-            this._errors.error(attr, option.message);
-        }
-    } else {
-        this._errors.error(attr, message);
-    }
-    return this;
-};
-
 exports.set = function(attrs) {
     if (this._instant) {
         this.begin();
@@ -79,7 +66,7 @@ exports.validate = function(attr_name) {
 
 exports.begin = function() {
     this._instant = false;
-    this._errors.clearError();
+    this.result.clearError();
 }
 
 exports.end = function() {
@@ -112,5 +99,5 @@ exports.end = function() {
 }
 
 exports.hasError = function() {
-    return this._errors.hasError();
+    return this.result.hasError();
 }

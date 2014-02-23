@@ -10,7 +10,7 @@
     "emitter-component": "~1.1.1",
     "istype": "~0.0.2",
     "validator": "~3.2.1",
-    "result-brighthas": "0.0.3"
+    "result-brighthas": "0.0.4"
   },
   "devDependencies": {
     "should": "~3.0.1"

@@ -207,6 +207,7 @@ describe("model", function() {
 
     it("email type", function() {
         var User = createModel("User");
+		
         User.attr("email", {
             type: "email",
             message: "have error !!!"
@@ -221,7 +222,7 @@ describe("model", function() {
         user.hasError().should.eql(true);
 		
 		
-        user.errors.email[0].should.eql("have error !!!");
+        user.result.error("email").should.eql(["have error !!!"]);
 
         user.email = "abcd@kk.com";
 

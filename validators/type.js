@@ -18,7 +18,7 @@ module.exports = function(Model) {
                 var type = Model.attrs[key].type;
                 if (typeof type === "function") {
                     if (value instanceof type) {} else {
-                        obj.error(key, key + " 's type error.");
+                        obj.result.error(key, key + " 's type error.");
                     }
                 } else if (types.indexOf(type) !== -1) {
 
@@ -73,7 +73,7 @@ module.exports = function(Model) {
                     }
 
                     if (hasError) {
-                        obj.error(key, key + " 's type error.");
+                        obj.result.error(key, key + " 's type error.");
                     }
 
                 }

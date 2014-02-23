@@ -17,11 +17,11 @@ module.exports = function(Model) {
             if (validator && value) {
                 if (is.regexp(validator)) {
                     if (!validator.test(value)) {
-                        obj.error(key, "error");
+                        obj.result.error(key, "error");
                     }
                 } else {
                     if (!validator(value)) {
-                        obj.error(key, "error");
+                        obj.result.error(key, "error");
                     }
                 }
 

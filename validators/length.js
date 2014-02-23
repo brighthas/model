@@ -31,18 +31,18 @@ module.exports = function(Model) {
 
                             if (typeof len !== "undefined") {
                                 if (value.length !== len) {
-                                    obj.error(key, key + "'s length isn't " + len);
+                                    obj.result.error(key, key + "'s length isn't " + len);
                                 }
                             } else {
                                 if (typeof min !== "undefined") {
                                     if (value.length < min) {
-                                        obj.error(key, key + "'s length must  >= " + min);
+                                        obj.result.error(key, key + "'s length must  >= " + min);
                                     }
                                 }
 
                                 if (typeof max !== "undefined") {
                                     if (value.length > max) {
-                                        obj.error(key, key + "'s length must  <= " + max);
+                                        obj.result.error(key, key + "'s length must  <= " + max);
                                     }
                                 }
                             }
@@ -53,18 +53,18 @@ module.exports = function(Model) {
 
                             if (typeof len !== "undefined") {
                                 if (value.length !== len) {
-                                    obj.error(key, key + "'s length isn't " + len);
+                                    obj.result.error(key, key + "'s length isn't " + len);
                                 }
                             } else {
                                 if (typeof min !== "undefined") {
                                     if (value.length < min) {
-                                        obj.error(key, key + "s length  >= " + min);
+                                        obj.result.error(key, key + "s length  >= " + min);
                                     }
                                 }
 
                                 if (typeof max !== "undefined") {
                                     if (value.length > max) {
-                                        obj.error(key, key + "'s length must  <= " + max);
+                                        obj.result.error(key, key + "'s length must  <= " + max);
                                     }
                                 }
                             }
@@ -75,19 +75,19 @@ module.exports = function(Model) {
 
                             if (typeof size !== "undefined") {
                                 if (value !== size) {
-                                    obj.error(key, key + " must == " + size);
+                                    obj.result.error(key, key + " must == " + size);
                                 }
                             } else {
 
                                 if (typeof min !== "undefined") {
                                     if (value < min) {
-                                        obj.error(key, key + "must  >= " + min);
+                                        obj.result.error(key, key + "must  >= " + min);
                                     }
                                 }
 
                                 if (typeof max !== "undefined") {
                                     if (value > max) {
-                                        obj.error(key, key + "must  <= " + max);
+                                        obj.result.error(key, key + "must  <= " + max);
                                     }
                                 }
                             }

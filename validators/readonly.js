@@ -8,7 +8,7 @@ module.exports = function(Model){
 		keys.forEach(function(key){
 			if(Model.attrs[key].readonly){
 				if(typeof obj.oattrs[key] !== "undefined"){
-					obj.error(key,key + " 's readonly.");
+					obj.result.error(key,key + " 's readonly.");
 				}
 			}
 		})
