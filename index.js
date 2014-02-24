@@ -49,10 +49,11 @@ function createModel(name) {
 
 			var errorFun = this.result.error.bind(this.result);
 			
-			this.result.error = function(attr, message) {
-				if(arguments.length === 1){
+			this.error = this.result.error = function(attr, message) {
+				if(arguments.length === 0){
+					return errorFun();
+				}else if(arguments.length === 1){
 					return errorFun(attr);
-
 				}else{
 				    var option = self.model.attrs[attr];
 				    var err = errorFun(attr);
