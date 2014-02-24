@@ -75,6 +75,7 @@ function createModel(name) {
                 bindSubEvent(this, names);
                 this.model.emit("created", this);
             }
+			this.attrs = {};
         }
     }
 
