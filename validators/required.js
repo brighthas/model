@@ -11,7 +11,7 @@ module.exports = function(Model){
 			if(Model.attrs[key].required){
 				var value = obj.attrs[key];
 				var type = is.type(value);
-				if(type === "null" || type === "undefined"){
+				if(type === "null" || type === "undefined" || value === ""){
 					obj.result.error(key,key + " 's value is unrequired.");
 				}
 			}
