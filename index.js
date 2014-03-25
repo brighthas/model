@@ -3,6 +3,7 @@ var Emitter = require("emitter-component"),
     statics = require("./static"),
 	Result = require("result-brighthas"),
     default_validator = require("./validators/default"),
+    convert_validator = require("./validators/convert"),
     readonly_validator = require("./validators/readonly"),
     type_validator = require("./validators/type"),
     required_validator = require("./validators/required"),
@@ -99,6 +100,7 @@ function createModel(name) {
 
     generateAttr([].slice.call(arguments, 1));
 
+    Model.use(convert_validator);
     Model.use(type_validator);
     Model.use(readonly_validator);
     Model.use(default_validator);

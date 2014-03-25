@@ -263,4 +263,22 @@ describe("model", function() {
 
     })
 
+    it("# convert",function(){
+
+        var User = createModel("User");
+
+        User
+            .attr("name")
+            .attr("age", {
+                type: "number",
+                convert:true
+            })
+
+
+        var user = new User;
+        user.age = "122";
+        console.log(typeof user.age , user.age);
+
+    })
+
 })
