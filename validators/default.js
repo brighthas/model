@@ -4,7 +4,9 @@ module.exports = function defaultValue(Model){
 		var keys = Object.keys(Model.attrs);
 		keys.forEach(function(key){
 			if(Model.attrs[key].hasOwnProperty("default")){
-				model.attrs[key] = Model.attrs[key]["default"];
+                if(typeof model.attrs[key] === "undefined"){
+                    model.attrs[key] = Model.attrs[key]["default"];
+                }
 			}
 		});
 	});
